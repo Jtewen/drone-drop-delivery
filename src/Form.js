@@ -1,18 +1,18 @@
 import { Button, TextField } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
   const Form = ({ handleClose, verifyAddr }) => {
     // create state variables for each input
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [zip, setZip] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
     const [address, setAddress] = useState('');
   
     const handleSubmit = e => {
       e.preventDefault();
-      console.log(firstName, lastName, zip, address);
-      verifyAddr(zip, address)
-      handleClose();
+      console.log(firstName, lastName, city, address);
+      verifyAddr(firstName, lastName, city, state, address);
     };
   
     return (
@@ -32,15 +32,19 @@ import { useState } from 'react';
           onChange={e => setLastName(e.target.value)}
         />
         <TextField
-          label="Zip Code"
+          label="City"
           variant="filled"
-          required
-          type="number"
-          value={zip}
-          onChange={e => setZip(e.target.value)}
+          value={city}
+          onChange={e => setCity(e.target.value)}
         />
         <TextField
-          label="Street Address"
+          label="State"
+          variant="filled"
+          value={state}
+          onChange={e => setState(e.target.value)}
+        />
+        <TextField
+          label="Location"
           variant="filled"
           required
           value={address}
@@ -51,7 +55,7 @@ import { useState } from 'react';
             Cancel
           </Button>
           <Button type="submit" variant="contained" color="primary">
-            Signup
+            Verify
           </Button>
         </div>
       </form>
